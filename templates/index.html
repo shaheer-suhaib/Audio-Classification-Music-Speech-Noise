@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Classification</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 400px;
+        }
+
+        .form-container h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #333;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #4caf50;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* Audio player styling */
+        .audio-player {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Upload Audio for <span style="color:#fbc531;">Classification</span></h2>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="audio">Upload WAV File:</label>
+            <input type="file" name="audio" id="audio" accept=".wav" required>
+            <input type="submit" value="Classify Audio">
+        </form>
+
+        {% if prediction %}
+            <div class="result">{{ prediction }}</div>
+        {% endif %}
+
+        {% if audio_file %}
+            <div class="audio-player">
+                <audio controls>
+                    <source src="{{ url_for('static', filename='uploads/' + audio_file) }}" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
